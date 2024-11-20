@@ -7,8 +7,8 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/", (req, res) => {
-    console.log("Hi");
-    res.send(req.body);
+    console.log(req.body);
+    res.send(JSON.stringify("hi"));
 });
 
 module.exports = router;
