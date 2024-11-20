@@ -1,10 +1,7 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-    const [count, setCount] = useState(0);
     const [data, setData] = useState("");
     async function server() {
         const res = await fetch("http://localhost:3000/users", {
@@ -18,10 +15,16 @@ function App() {
                 "Content-type": "application/json",
             },
         });
+        console.log("res: ", res);
+
         const data = await res.json();
-        setData(data);
+        console.log("data:", data);
+        setData(JSON.stringify(data));
     }
-    server();
+
+    useEffect(() => {
+        server();
+    }, []);
     return (
         <>
             <h1>Always Appears</h1>
