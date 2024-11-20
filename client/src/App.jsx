@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 function App() {
-    const [data, setData] = useState("");
+    // const [data, setData] = useState("");
     // async function server() {
     //     const res = await fetch("http://localhost:3000/users", {
     //         method: "POST",
