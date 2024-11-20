@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var app = express()
-
+const path = require('path')
 //
 const options = {
     root: path.join(__dirname,'..')
