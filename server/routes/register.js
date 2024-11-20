@@ -7,10 +7,11 @@ const path = require("path");
 //const firstChecks = require('../public/utilities')
 // import {firstChecks} from "../public/utilities"
 const PathToDb = path.join(__dirname, "../db/users.json");
-
-function handleMakingUserFiles() {
-  fs.mkdir(path.join(__dirname, `../db/userfiles/${user.id}`), (e) => console.log("Making New User's Directory", e));
-  fs.writeFile("directory.json", "", (e) => console.log("Writing directory", e));
+const basictemp = { bla: "bla" };
+const basictempj = JSON.stringify(basictemp);
+function handleMakingUserFiles(user) {
+  fs.mkdir(path.join(__dirname, `../db/userfiles/${user.username}`), (e) => console.log("Making New User's Directory", e));
+  fs.writeFile(path.join(__dirname, `../db/userfiles/${user.username}/directory.json`), "string", (e) => console.log("Writing directory", e));
 }
 
 router.post("/", (req, res) => {
@@ -33,6 +34,9 @@ router.post("/", (req, res) => {
     //from here only if user exists
     let newId = users[users.length - 1].id + 1;
     user.id = newId;
+    console.log("user", user);
+    console.log("user.id", user.id);
+    handleMakingUserFiles(user);
     users.push(user);
     usersjson = JSON.stringify(users);
     fs.writeFileSync(PathToDb, usersjson);
