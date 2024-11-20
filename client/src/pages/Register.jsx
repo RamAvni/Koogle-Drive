@@ -23,6 +23,8 @@ function Register() {
         "Content-type": "application/json",
       },
     });
+
+    if (res.status === 401) throw new Error("User already exists.");
     console.log(res.status);
   }
 
