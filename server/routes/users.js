@@ -35,23 +35,30 @@ router.delete("/*", (req, res) => {
 //   return files;
 // }
 
-//
 function getFiles(url) {
   const directoryPath = path.join(__dirname, `../db/userfiles/${url}`);
-  const fileArray = fs.readdirSync(directoryPath); // Read directory contents
+  const fileArray = fs.readdirSync(directoryPath);
 
   const files = fileArray.map((file) => {
-    const fullPath = path.join(directoryPath, file); // Full path to the file or folder
-    const stat = fs.statSync(fullPath); // Get stats for the specific file/folder
+    const fullPath = path.join(directoryPath, file);
+    const stat = fs.statSync(fullPath);
     console.log(`${file} is a`, stat.isFile() ? "file" : "folder");
 
     return {
       name: file,
-      type: stat.isFile() ? "file" : "folder", // Check type correctly
+      type: stat.isFile() ? "file" : "folder",
     };
   });
 
-  return files; // Return the list of files with type
+  return files;
+}
+
+function getFile(url) {}
+
+function findCurrentfileType(url) {
+  const stat = fs.statSync(path.join(__dirname, `../db/userfiles/${url}`));
+  const type = stat.isFile() ? "file" : "folder";
+  return type;
 }
 
 //
@@ -63,7 +70,11 @@ const options = {
 /* GET users listing. */
 
 router.get("/*", (req, res) => {
-  res.send(JSON.stringify(getFiles(req.url)));
+  if (findCurrentfileType(req.url) === "folder") {
+    res.send(JSON.stringify(getFiles(req.url)));
+  } else {
+    res.sendFile(path.join(__dirname, `../db/userfiles/${req.url}`));
+  }
 });
 
 router.post("/", (req, res) => {

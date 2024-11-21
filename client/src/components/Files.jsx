@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-function File(props) {
+function Files(props) {
   const navigate = useNavigate();
 
   async function deleteSelf() {
@@ -12,16 +12,18 @@ function File(props) {
 
   function handleClick(type) {
     if (type === "folder") {
+      console.log("i think im a folder");
       navigate(`${props.location}/${props.filename}`);
-    } else {
+    }
+    if (type === "file") {
+      props.setPageType("file");
+      navigate(`${props.location}/${props.filename}`);
     }
   }
   return (
     <div>
       <button style={{ backgroundColor: props.filetype === "file" ? "blue" : "yellow" }} onClick={() => handleClick(props.filetype)}>
         {props.filename}
-        &nbsp
-        {props.filetype}
       </button>
       <button onClick={deleteSelf}>Delete</button>
       <button>Rename</button>
@@ -29,6 +31,6 @@ function File(props) {
     </div>
   );
 }
-export default File;
+export default Files;
 
 // { color: props.foldertype === "file" ? "blue" : "yellow" }

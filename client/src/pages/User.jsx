@@ -1,50 +1,57 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { NavLink, useParams, useLocation } from "react-router-dom";
 
-import File from "../components/File";
+import Files from "../components/Files";
+import SingleFiles from "../components/singleFiles";
 
 function User() {
-<<<<<<< HEAD
   const [files, setFiles] = useState([]);
+  const [resFile, setResFile] = useState();
+  const [pageType, setPageType] = useState("folder");
+  console.log("pageType: ", pageType);
   console.log("files: ", files);
 
   const { username } = useParams();
-=======
-    const [files, setFiles] = useState([]);
-    console.log("files: ", files);
-    const { username } = useParams();
->>>>>>> 93198df62b016229088453e4796b3b8ecbb07960
 
-    const location = useLocation();
+  const location = useLocation();
 
-    useEffect(() => {
-        postInfoToServer(username);
-    }, [location]);
+  useEffect(() => {
+    postInfoToServer(username);
+  }, [location, pageType]);
 
-<<<<<<< HEAD
   async function postInfoToServer(username) {
     const res = await fetch(`http://localhost:3000${location.pathname}`);
-    const data = await res.json();
-    setFiles(data);
+    if (pageType === "folder") {
+      const data = await res.json();
+      //console.log("data: ", data);
+      setFiles(data);
+    }
+    if (pageType === "file") {
+      const fileData = await res.text();
+      setResFile(fileData);
+      console.log("this is file data:", resFile);
+    }
   }
+
   return (
     <>
-      <ul>{files && files.map((file) => <File location={location.pathname} filename={file.name} filetype={file.type} key={file.name} />)}</ul>
+      {pageType === "folder" ? (
+        <ul>
+          {files &&
+            files.map((file) => (
+              <Files setPageType={setPageType} location={location.pathname} filename={file.name} filetype={file.type} key={file.name} />
+            ))}
+        </ul>
+      ) : (
+        resFile && (
+          <>
+            {" "}
+            <SingleFiles file={resFile} />{" "}
+          </>
+        )
+      )}
     </>
   );
-=======
-    async function postInfoToServer() {
-        console.log(`AHHH: http://localhost:3000${location.pathname}`);
-        const res = await fetch(`http://localhost:3000${location.pathname}`);
-        const data = await res.json();
-        setFiles(data);
-    }
-    return (
-        <>
-            <ul>{files && files.map((file) => <File location={location.pathname} filename={file.name} key={file.name} />)}</ul>
-        </>
-    );
->>>>>>> 93198df62b016229088453e4796b3b8ecbb07960
 }
 export default User;
