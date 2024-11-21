@@ -3,20 +3,20 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function User() {
-    const [files, setFiles] = useState([]);
-    console.log("files: ", files);
-    let { username } = useParams();
+  const [files, setFiles] = useState([]);
+  console.log("files: ", files);
+  let { username } = useParams();
 
-    useEffect(() => {
-        postInfoToServer(username);
-    }, []);
+  useEffect(() => {
+    postInfoToServer(username);
+  }, []);
 
-    async function postInfoToServer(username) {
-        const res = await fetch(`http://localhost:3000/users/${username}`);
-        const data = await res.json();
-        setFiles(data);
-    }
-    return <>{files && files.map((file) => <p key={file}>{file}</p>)}</>;
+  async function postInfoToServer(username) {
+    const res = await fetch(`http://localhost:3000/users/${username}`);
+    const data = await res.json();
+    setFiles(data);
+  }
+  return <>{files && files.map((file) => <p>{file.name}</p>)}</>;
 }
 
 export default User;
