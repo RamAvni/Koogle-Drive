@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 function User() {
   const [files, setFiles] = useState([]);
   console.log("files: ", files);
-  let { username } = useParams();
+  const { username } = useParams();
 
   useEffect(() => {
     postInfoToServer(username);
@@ -16,7 +16,18 @@ function User() {
     const data = await res.json();
     setFiles(data);
   }
-  return <>{files && files.map((file) => <p>{file.name}</p>)}</>;
+  return (
+    <>
+      <ul>
+        {files &&
+          files.map((file) => (
+            <li>
+              <NavLink to={file.name}>{file.name}</NavLink>
+            </li>
+          ))}
+      </ul>
+    </>
+  );
 }
 
 export default User;
