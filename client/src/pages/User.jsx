@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-key */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function User() {
-    const [files, setFiles] = useState();
+    const [files, setFiles] = useState([]);
+    console.log("files: ", files);
     let { username } = useParams();
 
     useEffect(() => {
@@ -12,10 +14,9 @@ function User() {
     async function postInfoToServer(username) {
         const res = await fetch(`http://localhost:3000/users/${username}`);
         const data = await res.json();
-        console.log(data, res);
         setFiles(data);
     }
-    return <h1>{`${files}`}</h1>;
+    return <>{files && files.map((file) => <p key={file}>{file}</p>)}</>;
 }
 
 export default User;
