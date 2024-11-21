@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams, useLocation } from "react-router-dom";
 
-import File from "../components/File";
+import Files from "../components/Files";
 import SingleFiles from "../components/singleFiles";
 
 function User() {
@@ -38,7 +38,7 @@ function User() {
         <ul>
           {files &&
             files.map((file) => (
-              <File
+              <Files
                 setPageType={setPageType}
                 setUpdate={setUpdate}
                 location={location.pathname}
