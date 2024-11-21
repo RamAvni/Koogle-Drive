@@ -26,6 +26,12 @@ function Register() {
 
     if (res.status === 401) throw new Error("User already exists.");
     console.log(res.status);
+    console.log("made it passed the check");
+
+    if (res.status === 200) {
+      let user = await res.json();
+      navigate(`/users/${user.username}`);
+    }
   }
 
   return (

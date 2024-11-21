@@ -2,6 +2,7 @@ import "./stylesheets/utilities/form.css";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +27,13 @@ function Login() {
     });
 
     if (res.status === 401) throw new Error("Incorrect username/password");
-    console.log(res.status);
+    //console.log(res.body);
+
+    if (res.status === 200) {
+      let user = await res.json();
+      console.log("user: ", user);
+      navigate(`/users/${user.username}`);
+    }
   }
 
   return (
