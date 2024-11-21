@@ -9,16 +9,14 @@ function User() {
   const [files, setFiles] = useState([]);
   const [resFile, setResFile] = useState();
   const [pageType, setPageType] = useState("folder");
-  console.log("pageType: ", pageType);
-  console.log("files: ", files);
 
   const { username } = useParams();
-
+  const [update, setUpdate] = useState(0);
   const location = useLocation();
 
   useEffect(() => {
     postInfoToServer(username);
-  }, [location, pageType]);
+  }, [location, pageType, update]);
 
   async function postInfoToServer(username) {
     const res = await fetch(`http://localhost:3000${location.pathname}`);
@@ -40,7 +38,14 @@ function User() {
         <ul>
           {files &&
             files.map((file) => (
-              <File setPageType={setPageType} location={location.pathname} filename={file.name} filetype={file.type} key={file.name} />
+              <File
+                setPageType={setPageType}
+                setUpdate={setUpdate}
+                location={location.pathname}
+                filename={file.name}
+                filetype={file.type}
+                key={file.name}
+              />
             ))}
         </ul>
       ) : (
