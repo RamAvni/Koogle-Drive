@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import File from "../components/File";
+
 function User() {
     const [files, setFiles] = useState([]);
-    console.log("files: ", files);
     let { username } = useParams();
 
     useEffect(() => {
@@ -16,7 +17,9 @@ function User() {
         const data = await res.json();
         setFiles(data);
     }
-    return <>{files && files.map((file) => <p key={file}>{file}</p>)}</>;
+
+    console.log("files: ", files);
+    return <>{files && files.map((file) => <p key={file.name}>{file.name}</p>)}</>;
 }
 
 export default User;
