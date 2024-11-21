@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-function Files(props) {
+function File(props) {
   const navigate = useNavigate();
 
   async function deleteSelf() {
@@ -31,6 +31,6 @@ function Files(props) {
     </div>
   );
 }
-export default Files;
+export default File;
 
 // { color: props.foldertype === "file" ? "blue" : "yellow" }

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams, useLocation } from "react-router-dom";
 
-import Files from "../components/Files";
+import File from "../components/File";
 import SingleFiles from "../components/singleFiles";
 
 function User() {
@@ -40,7 +40,7 @@ function User() {
         <ul>
           {files &&
             files.map((file) => (
-              <Files setPageType={setPageType} location={location.pathname} filename={file.name} filetype={file.type} key={file.name} />
+              <File setPageType={setPageType} location={location.pathname} filename={file.name} filetype={file.type} key={file.name} />
             ))}
         </ul>
       ) : (
