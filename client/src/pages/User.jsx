@@ -8,12 +8,12 @@ function User() {
     const [files, setFiles] = useState([]);
     console.log("files: ", files);
     const { username } = useParams();
-
+    const [update, setUpdate] = useState(0);
     const location = useLocation();
 
     useEffect(() => {
         postInfoToServer(username);
-    }, [location]);
+    }, [location, update]);
 
     async function postInfoToServer() {
         console.log(`AHHH: http://localhost:3000${location.pathname}`);
@@ -23,7 +23,7 @@ function User() {
     }
     return (
         <>
-            <ul>{files && files.map((file) => <File location={location.pathname} filename={file.name} key={file.name} />)}</ul>
+            <ul>{files && files.map((file) => <File setUpdate={setUpdate} location={location.pathname} filename={file.name} key={file.name} />)}</ul>
         </>
     );
 }
