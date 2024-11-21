@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams, useLocation } from "react-router-dom";
 
 import File from "../components/File";
 
@@ -10,33 +9,21 @@ function User() {
   console.log("files: ", files);
   const { username } = useParams();
 
+  const location = useLocation();
+
   useEffect(() => {
     postInfoToServer(username);
-  }, []);
+  }, [location]);
 
   async function postInfoToServer(username) {
-    const res = await fetch(`http://localhost:3000/users/${username}`);
+    const res = await fetch(`http://localhost:3000${location.pathname}`);
     const data = await res.json();
     setFiles(data);
   }
   return (
     <>
-      <ul>
-        {files &&
-          files.map((file) => (
-            <li>
-              <NavLink to={file.name}>{file.name}</NavLink>
-            </li>
-          ))}
-      </ul>
+      <ul>{files && files.map((file) => <File location={location.pathname} filename={file.name} key={file.name} />)}</ul>
     </>
   );
-  async function postInfoToServer(username) {
-    const res = await fetch(`http://localhost:3000/users/${username}`);
-    const data = await res.json();
-    setFiles(data);
-  }
-  return <>{files && files.map((file) => <p>{file.name}</p>)}</>;
 }
-
 export default User;
