@@ -4,27 +4,21 @@ var app = express();
 const path = require("path");
 const fs = require("fs");
 
-// router.post("/*", (req, res) => {
-//     console.log(req.url);
-//     res.send(req.url);
-// });
-
 router.patch("/*", (req, res) => {
     const lastSlashIndex = req.url.lastIndexOf("/");
-    console.log(req.url, lastSlashIndex);
     const parentDirectoryURL = req.url.slice(0, lastSlashIndex);
-    const newURL = path.join(__dirname, `../db/userfiles${parentDirectoryURL}/${req.body.newName}`);
-    console.log("parentDirectoryURL: ", parentDirectoryURL);
+    const newURL = `${parentDirectoryURL}/${req.body.newName}`;
 
-    fs.renameSync(path.join(__dirname, `../db/userfiles${req.url}`), newURL);
+    fs.renameSync(path.join(__dirname, `../db/userfiles${req.url}`), path.join(__dirname, `../db/userfiles${newURL}`));
     res.send(`Changed ${req.url} into ${newURL}`);
 });
 
 router.delete("/*", (req, res) => {
-    console.log(path.join(__dirname, `../db/userfiles${req.url}`));
     fs.unlinkSync(path.join(__dirname, `../db/userfiles${req.url}`));
     res.send(`Deleted ${req.url}`);
 });
+
+router.post("/*", (req, res) => {});
 
 function getFiles(url) {
     const fileArray = fs.readdirSync(path.join(__dirname, `../db/userfiles/${url}`));
