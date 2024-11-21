@@ -9,6 +9,18 @@ router.post("/*", (req, res) => {
   res.send(req.url);
 });
 
+router.delete("/*", (req, res) => {
+  console.log(path.join(__dirname, `../db/userfiles${req.url}`));
+  fs.unlinkSync(path.join(__dirname, `../db/userfiles${req.url}`));
+  res.send(`Deleted ${req.url}`);
+});
+
+router.delete("/*", (req, res) => {
+  console.log(path.join(__dirname, `../db/userfiles${req.url}`));
+  fs.unlinkSync(path.join(__dirname, `../db/userfiles${req.url}`));
+  res.send(`Deleted ${req.url}`);
+});
+
 // function getFiles(url) {
 //   const fileArray = fs.readdirSync(path.join(__dirname, `../db/userfiles/${url}`));
 //   const files = fileArray.map((file) => {
