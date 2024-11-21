@@ -1,1 +1,4 @@
-[{"username":"bob","password":"secret","id":1},{"username":"Ram","password":"123","id":2},{"username":"pasta","password":"pasta","id":3},{"username":"bread","password":"bread","id":4},{"username":"qed","password":"qwd","id":5},{"username":"blurb","password":"blurb","id":6},{"username":"blu","password":"blu","id":7},{"username":"bl","password":"bl","id":8},{"username":"b","password":"b","id":9},{"username":"SD","password":"ASDSA","id":10}]
+[
+  { "username": "bob", "password": "secret", "id": 1 },
+  { "username": "Ram", "password": "123", "id": 2 }
+]
