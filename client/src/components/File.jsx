@@ -1,11 +1,20 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 function File(props) {
-  console.log(props);
   const navigate = useNavigate();
+  function handleClick(type) {
+    if (type === "folder") {
+      navigate(`${props.location}/${props.filename}`);
+    } else {
+    }
+  }
   return (
     <div>
-      <button onClick={() => navigate(`${props.location}/${props.filename}`)}>{props.filename}</button>
+      <button style={{ backgroundColor: props.filetype === "file" ? "blue" : "yellow" }} onClick={() => handleClick(props.filetype)}>
+        {props.filename}
+        &nbsp
+        {props.filetype}
+      </button>
       <button>Delete</button>
       <button>Rename</button>
       <button>Copy</button>
@@ -13,3 +22,5 @@ function File(props) {
   );
 }
 export default File;
+
+// { color: props.foldertype === "file" ? "blue" : "yellow" }

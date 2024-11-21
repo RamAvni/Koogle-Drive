@@ -7,6 +7,7 @@ import File from "../components/File";
 function User() {
   const [files, setFiles] = useState([]);
   console.log("files: ", files);
+
   const { username } = useParams();
 
   const location = useLocation();
@@ -22,7 +23,7 @@ function User() {
   }
   return (
     <>
-      <ul>{files && files.map((file) => <File location={location.pathname} filename={file.name} key={file.name} />)}</ul>
+      <ul>{files && files.map((file) => <File location={location.pathname} filename={file.name} filetype={file.type} key={file.name} />)}</ul>
     </>
   );
 }
