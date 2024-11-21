@@ -17,9 +17,7 @@ function User() {
         const data = await res.json();
         setFiles(data);
     }
-
-    console.log("files: ", files);
-    return <>{files && files.map((file) => <p key={file.name}>{file.name}</p>)}</>;
+    return <>{files && files.map((file) => <p>{file.name}</p>)}</>;
 }
 
 export default User;
